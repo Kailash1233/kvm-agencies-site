@@ -15,7 +15,7 @@ export const SITE = {
   phone: "+919150751905",
   phoneDisplay: "+91 91507 51905",
   whatsapp: "919150751905",
-  email: "kvmagencies2002@gmail.com",
+  email: "kvmagencies123@gmail.com",
   gstin: "33BAZPM1036Q1Z1",
   foundingYear: 2002,
   address: {
@@ -47,19 +47,21 @@ export const SITE = {
     // TODO: replace the dummy links below with real profile URLs, then add them to `sameAs`
     facebook: "#",
     justdial: "#",
-    indiamart: "#",
+    indiamart:
+      "https://www.indiamart.com/company/160472674/?srsltid=AYCX9vKO_hTMQRLWUFNxJoojYGK2S6YXuTg-KLgX5qxNAw7NNsqsA6LW",
   },
   // Only real, live profiles go here (used in schema.org sameAs)
   sameAs: [
     "https://www.instagram.com/kvmcmart/",
     "https://www.youtube.com/@kvmcmart",
+    "https://www.indiamart.com/company/160472674/?srsltid=AYCX9vKO_hTMQRLWUFNxJoojYGK2S6YXuTg-KLgX5qxNAw7NNsqsA6LW",
   ],
   // Fill these after setting up Google tools (leave empty to disable)
   googleAnalyticsId: "", // e.g. 'G-XXXXXXXXXX'
   googleSiteVerification: "", // content value of the meta tag from Search Console (or verify via DNS)
   bingSiteVerification: "",
   // Enquiry form → email (FormSubmit.co, no backend needed). First submission sends an activation mail to this inbox.
-  formEndpoint: "https://formsubmit.co/ajax/kvmagencies2002@gmail.com",
+  formEndpoint: "https://formsubmit.co/ajax/kvmagencies123@gmail.com",
   ogImage: "/og-image.jpg",
   logo: "/logo.png",
 };
