@@ -227,7 +227,7 @@ async function pageWith(viewport) {
   const { ctx, page } = await pageWith({ width: 1280, height: 900 })
   let posted = null
   await page.route('https://formsubmit.co/**', async (r) => {
-    posted = { url: r.request().url(), body: JSON.parse(r.request().postData() || '{}') }
+    posted = { url: r.request().url(), body: Object.fromEntries(new URLSearchParams(r.request().postData() || '')), preflight: r.request().method() === 'OPTIONS' }
     await r.fulfill({ status: 200, contentType: 'application/json', body: '{"success":"true"}' })
   })
   await page.goto(BASE + '/contact', { waitUntil: 'networkidle' })

@@ -305,18 +305,22 @@ export function EnquiryForm({ lang, defaultMaterial, defaultArea }: { lang: Lang
     setWaMsg(msg)
     setStatus('sending')
     try {
-      const res = await fetch(SITE.formEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          ...data,
-          page: typeof window !== 'undefined' ? window.location.href : '',
-          _subject: `New enquiry: ${data.material} – ${data.location} (${data.name})`,
-          _template: 'table',
-          _captcha: 'false',
-        }),
+      // Form-encoded body + only CORS-safelisted headers = no preflight request (FormSubmit rejects preflights)
+      const body = new URLSearchParams({
+        ...data,
+        page: typeof window !== 'undefined' ? window.location.href : '',
+        _subject: `New enquiry: ${data.material} – ${data.location} (${data.name})`,
+        _template: 'table',
+        _captcha: 'false',
       })
-      if (!res.ok) throw new Error(String(res.status))
+      try {
+        const res = await fetch(SITE.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body })
+        if (!res.ok) throw new Error(String(res.status))
+      } catch (err) {
+        // Response not readable (CORS) – send again without reading the reply; FormSubmit still delivers the email
+        if (err instanceof TypeError) await fetch(SITE.formEndpoint, { method: 'POST', mode: 'no-cors', body })
+        else throw err
+      }
       setStatus('sent')
       ;(window as any).gtag?.('event', 'generate_lead', { method: 'form', material: data.material, location: data.location })
       form.reset()
