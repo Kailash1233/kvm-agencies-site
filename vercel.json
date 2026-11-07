@@ -1,0 +1,46 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/shop", "destination": "/products", "permanent": true },
+    { "source": "/shop/:path*", "destination": "/products", "permanent": true },
+    { "source": "/store/:path*", "destination": "/products", "permanent": true },
+    { "source": "/product/:path*", "destination": "/products", "permanent": true },
+    { "source": "/product-category/:path*", "destination": "/products", "permanent": true },
+    { "source": "/collections/:path*", "destination": "/products", "permanent": true },
+    { "source": "/cart", "destination": "/contact", "permanent": true },
+    { "source": "/checkout", "destination": "/contact", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/about-us", "destination": "/about", "permanent": true },
+    { "source": "/calculator", "destination": "/material-calculator", "permanent": true },
+    { "source": "/tamil", "destination": "/ta", "permanent": true },
+    { "source": "/products/ars-steel", "destination": "/products/ars-tmt-steel", "permanent": true },
+    { "source": "/products/mcr-steel", "destination": "/products/mcr-tmt-steel", "permanent": true },
+    { "source": "/products/jally", "destination": "/products/jally-blue-metal", "permanent": true },
+    { "source": "/products/acc-blocks", "destination": "/products/aac-blocks", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/(llms.txt|llms-full.txt|robots.txt)",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    }
+  ]
+}

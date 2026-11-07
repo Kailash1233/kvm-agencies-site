@@ -1,0 +1,53 @@
+{
+  "products": [
+    { "slug": "cement", "name": "Cement – All Brands", "sub": "Ramco · UltraTech · Dalmia · ACC · Maha · Adani", "category": "cement" },
+    { "slug": "ramco-cement", "name": "Ramco Cement", "sub": "Supergrade · Supercrete · OPC 53", "category": "cement" },
+    { "slug": "ultratech-cement", "name": "UltraTech Cement", "sub": "OPC 53 & PPC", "category": "cement" },
+    { "slug": "dalmia-cement", "name": "Dalmia Cement", "sub": "DSP · Concreto · PPC", "category": "cement" },
+    { "slug": "acc-cement", "name": "ACC Cement", "sub": "PPC & OPC", "category": "cement" },
+    { "slug": "maha-cement", "name": "Maha Cement", "sub": "PPC & OPC", "category": "cement" },
+    { "slug": "adani-cement", "name": "Adani Cement", "sub": "Adani Group", "category": "cement" },
+    { "slug": "m-sand", "name": "M Sand", "sub": "Concrete sand · 0–4.75 mm", "category": "sand" },
+    { "slug": "p-sand", "name": "P Sand", "sub": "Plastering sand", "category": "sand" },
+    { "slug": "jally-blue-metal", "name": "Jally / Blue Metal", "sub": "6 · 12 · 20 · 40 mm", "category": "aggregate" },
+    { "slug": "chamber-bricks", "name": "Chamber Bricks", "sub": "Well-burnt red bricks", "category": "bricks" },
+    { "slug": "wire-cut-bricks", "name": "Wire Cut Bricks", "sub": "Uniform machine-cut", "category": "bricks" },
+    { "slug": "hollow-blocks", "name": "Hollow Blocks", "sub": "4\" · 6\" · 8\"", "category": "blocks" },
+    { "slug": "aac-blocks", "name": "AAC Blocks", "sub": "Lightweight · 4\"–9\"", "category": "blocks" },
+    { "slug": "tmt-steel", "name": "TMT Steel Bars", "sub": "MCR · ARS · 8–32 mm", "category": "steel" },
+    { "slug": "mcr-tmt-steel", "name": "MCR TMT Steel", "sub": "8 mm – 32 mm", "category": "steel" },
+    { "slug": "ars-tmt-steel", "name": "ARS TMT Steel", "sub": "ARS 550D · 8 mm – 32 mm", "category": "steel" },
+    { "slug": "binding-wire", "name": "Binding Wire", "sub": "18 & 20 gauge", "category": "wire" }
+  ],
+  "categories": [
+    { "slug": "cement", "name": "Cement" },
+    { "slug": "sand", "name": "M Sand & P Sand" },
+    { "slug": "aggregate", "name": "Jally / Blue Metal" },
+    { "slug": "bricks", "name": "Bricks" },
+    { "slug": "blocks", "name": "Hollow & AAC Blocks" },
+    { "slug": "steel", "name": "TMT Steel" },
+    { "slug": "wire", "name": "Binding Wire" }
+  ],
+  "blog": [
+    { "slug": "cement-price-in-chengalpattu-today", "title": "Cement Price in Chengalpattu Today", "icon": "cement" },
+    { "slug": "opc-vs-ppc-cement-which-is-better", "title": "OPC vs PPC Cement", "icon": "cement" },
+    { "slug": "m-sand-vs-p-sand-vs-river-sand", "title": "M Sand vs P Sand vs River Sand", "icon": "sand" },
+    { "slug": "construction-material-calculator-per-sq-ft", "title": "Materials per Sq Ft – House Estimate", "icon": "calc" },
+    { "slug": "chamber-bricks-vs-wire-cut-bricks-vs-hollow-blocks-vs-aac-blocks", "title": "Bricks vs Blocks – Which to Choose?", "icon": "bricks" },
+    { "slug": "how-to-choose-tmt-steel-bars-weight-chart", "title": "TMT Steel Guide & Weight Chart", "icon": "steel" },
+    { "slug": "jally-sizes-and-uses-20mm-40mm-12mm-6mm", "title": "Jally Sizes & Uses", "icon": "aggregate" },
+    { "slug": "best-cement-brand-for-house-construction-tamil-nadu", "title": "Best Cement Brand for Your House", "icon": "cement" },
+    { "slug": "house-construction-materials-checklist-chengalpattu", "title": "House Construction Materials Checklist", "icon": "building" },
+    { "slug": "how-to-store-cement-and-steel-at-site-monsoon", "title": "Storing Materials in the Monsoon", "icon": "cement" }
+  ],
+  "team": [
+    { "slug": "murali-kathirvel", "initials": "MK", "name": "Murali Kathirvel", "role": "Founder" },
+    { "slug": "naveen-m-r", "initials": "NM", "name": "Naveen M R", "role": "Managing Director" },
+    { "slug": "kailash", "initials": "K", "name": "Kailash", "role": "Technical Advisor" }
+  ],
+  "heroes": [
+    { "slug": "home", "title": "Building Materials Yard", "sub": "", "icon": "building" },
+    { "slug": "delivery", "title": "Site Delivery", "sub": "", "icon": "truck" },
+    { "slug": "yard", "title": "KVM Agencies Yard", "sub": "", "icon": "building" }
+  ]
+}

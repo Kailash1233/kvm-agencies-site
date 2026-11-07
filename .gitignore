@@ -1,0 +1,9 @@
+node_modules
+dist
+.output
+.vinxi
+.tanstack
+test-results/*.png
+*.log
+.DS_Store
+*.zip
