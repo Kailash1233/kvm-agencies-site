@@ -16,9 +16,17 @@
     var msg = ('Hi KVM Agencies, I am ' + d.name + ' (' + d.phone + '). I need ' + d.material + (d.quantity ? ' – ' + d.quantity : '') + ' at ' + d.location + '. ' + (d.message || '')).trim();
     btn.disabled = true; btn.textContent = T.sending;
     var old = f.querySelectorAll('.form-status, .wa-after'); for (var i = 0; i < old.length; i++) old[i].remove();
-    var body = Object.assign({}, d, { page: location.href, _subject: 'New enquiry: ' + d.material + ' – ' + d.location + ' (' + d.name + ')', _template: 'table', _captcha: 'false' });
-    fetch('__FORM_ENDPOINT__', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); done(true); if (window.gtag) gtag('event', 'generate_lead', { method: 'form', material: d.material, location: d.location }); f.reset(); })
+    // Form-encoded body + only CORS-safelisted headers = no preflight request (FormSubmit rejects preflights)
+    var body = new URLSearchParams(Object.assign({}, d, { page: location.href, _subject: 'New enquiry: ' + d.material + ' – ' + d.location + ' (' + d.name + ')', _template: 'table', _captcha: 'false' }));
+    var url = '__FORM_ENDPOINT__';
+    function ok() { done(true); if (window.gtag) gtag('event', 'generate_lead', { method: 'form', material: d.material, location: d.location }); f.reset(); }
+    fetch(url, { method: 'POST', headers: { Accept: 'application/json' }, body: body })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); ok(); })
+      .catch(function (err) {
+        // Response not readable (CORS) – send again without reading the reply; FormSubmit still delivers the email
+        if (err instanceof TypeError) return fetch(url, { method: 'POST', mode: 'no-cors', body: body }).then(ok);
+        throw err;
+      })
       .catch(function () { done(false); });
     function done(ok) {
       btn.disabled = false; btn.textContent = label;
