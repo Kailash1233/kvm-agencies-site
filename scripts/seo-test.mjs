@@ -71,7 +71,7 @@ for (const p of pages) {
   if (!html.includes('href="https://wa.me/919150751905')) issues.push(`${p}: no WhatsApp link`)
   if (!html.includes('id="enquiry"')) issues.push(`${p}: no enquiry form`)
   if (!html.includes('og:image')) issues.push(`${p}: no og:image`)
-  if (!html.includes('Designed and Developed by <strong>Adszoo</strong>')) issues.push(`${p}: Adszoo credit missing`)
+  if (!/Designed and Developed by(<!-- -->)?\s*<a href="https:\/\/adszoo\.in"[^>]*>Adszoo<\/a>/.test(html)) issues.push(`${p}: Adszoo credit link missing`)
   // Images: alt text, explicit dimensions, file exists
   for (const m of html.matchAll(/<img\b[^>]*>/g)) {
     const tag = m[0]
