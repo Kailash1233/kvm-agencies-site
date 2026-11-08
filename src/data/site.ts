@@ -41,25 +41,26 @@ export const SITE = {
     opens: "09:00",
     closes: "19:00",
   },
+  // Leave a link empty ("") to hide it from the footer
   social: {
     instagram: "https://www.instagram.com/kvmcmart/",
     youtube: "https://www.youtube.com/@kvmcmart",
-    // TODO: replace the dummy links below with real profile URLs, then add them to `sameAs`
-    facebook: "#",
-    justdial: "#",
-    indiamart:
-      "https://www.indiamart.com/company/160472674/?srsltid=AYCX9vKO_hTMQRLWUFNxJoojYGK2S6YXuTg-KLgX5qxNAw7NNsqsA6LW",
+    linkedin: "https://in.linkedin.com/company/kvm-cmart",
+    justdial:
+      "https://www.justdial.com/Chengalpattu/KVM-Agencies-Periya-Natham-Kanchipuram-High-Road/9999PXX44-XX44-170310161013-J7N1_BZDET",
+    indiamart: "https://www.indiamart.com/company/160472674",
+    facebook: "", // TODO: add when the Facebook page is ready
   },
-  // Only real, live profiles go here (used in schema.org sameAs)
-  sameAs: [
-    "https://www.instagram.com/kvmcmart/",
-    "https://www.youtube.com/@kvmcmart",
-    "https://www.indiamart.com/company/160472674/?srsltid=AYCX9vKO_hTMQRLWUFNxJoojYGK2S6YXuTg-KLgX5qxNAw7NNsqsA6LW",
-  ],
-  // Fill these after setting up Google tools (leave empty to disable)
-  googleAnalyticsId: "", // e.g. 'G-XXXXXXXXXX'
-  googleSiteVerification: "", // content value of the meta tag from Search Console (or verify via DNS)
-  bingSiteVerification: "",
+  // Live profiles of this business (schema.org sameAs) – built from `social`
+  get sameAs(): string[] {
+    return Object.values(this.social).filter(Boolean);
+  },
+  // Tracking (leave empty to disable)
+  googleAnalyticsId: "G-5ENBYJV905", // GA4 – loaded directly; do NOT also add a GA4 tag inside GTM (double counting)
+  GTMId: "GTM-TSTQ4F2S", // Google Tag Manager container
+  clarityId: "zabyfg8h4m", // Microsoft Clarity – loaded directly; do NOT also add Clarity inside GTM
+  googleSiteVerification: "", // verified via public/googlec8fb3c71c908bc1d.html
+  bingSiteVerification: "", // verified by importing from Google Search Console
   // Enquiry form → email (FormSubmit.co, no backend needed). First submission sends an activation mail to this inbox.
   formEndpoint: "https://formsubmit.co/ajax/kvmagencies123@gmail.com",
   ogImage: "/og-image.jpg",

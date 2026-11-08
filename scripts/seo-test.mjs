@@ -172,6 +172,15 @@ ok(
   `JSON-LD blocks parse (${ldCount} blocks; types: ${[...ldTypes].sort().join(", ")})`,
   ldCount > indexable.length * 3
 );
+{
+  const home = fs.readFileSync(file("/"), "utf8");
+  ok("Google Tag Manager installed (head script + noscript)", home.includes("googletagmanager.com/gtm.js") && home.includes("ns.html?id=GTM-TSTQ4F2S"));
+  ok("GA4 installed", home.includes("gtag/js?id=G-5ENBYJV905"));
+  ok("Microsoft Clarity installed", home.includes('"clarity","script","zabyfg8h4m"'));
+  ok("Favicons linked (48px multiple for Google Search)", ['href="/favicon.ico"', 'href="/favicon-48x48.png"', 'href="/favicon-96x96.png"'].every((h) => home.includes(h)) && ["favicon.ico", "favicon-48x48.png", "favicon-96x96.png"].every((f) => fs.existsSync(path.join(OUT, f))));
+  ok("Footer social links (no empty / # links)", home.includes("in.linkedin.com/company/kvm-cmart") && home.includes("justdial.com/Chengalpattu/KVM-Agencies") && !/<a href="#"/.test(home) && !home.includes(">Facebook<"));
+  ok("sameAs lists the business profiles", home.includes('"sameAs":["https://www.instagram.com/kvmcmart/"') && home.includes("linkedin.com/company/kvm-cmart"));
+}
 ok(
   "Schema founder is Murali Kathirvel",
   fs

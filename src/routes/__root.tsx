@@ -8,7 +8,8 @@ import { altPath, isTamil } from '~/lib/alt'
 import { Header, Footer, ActionBar, EnquiryForm } from '~/components/ui'
 import NotFound from '~/components/NotFound'
 
-const trackScript = `document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var k=a.getAttribute('data-track');if(window.gtag){gtag('event',k==='call'?'click_to_call':'click_to_whatsapp',{link_url:a.href,page_path:location.pathname});gtag('event','generate_lead',{method:k});}});`
+// Call / WhatsApp clicks → GA4 (gtag) and Google Tag Manager (dataLayer events: click_to_call, click_to_whatsapp)
+const trackScript = `document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var k=a.getAttribute('data-track');var ev=k==='call'?'click_to_call':'click_to_whatsapp';window.dataLayer=window.dataLayer||[];dataLayer.push({event:ev,link_url:a.href,page_path:location.pathname});if(window.gtag){gtag('event',ev,{link_url:a.href,page_path:location.pathname});gtag('event','generate_lead',{method:k});}});`
 
 export const Route = createRootRoute({
   head: () => {
@@ -25,10 +26,23 @@ export const Route = createRootRoute({
       { type: 'application/ld+json', children: JSON.stringify(businessSchema()) },
       { children: trackScript },
     ]
+    // Google Tag Manager container (keep GA4 and Clarity out of GTM – they are loaded below)
+    if (SITE.GTMId) {
+      scripts.push({
+        children: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${SITE.GTMId}');`,
+      })
+    }
+    // Google Analytics 4
     if (SITE.googleAnalyticsId) {
       scripts.push({ src: `https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`, async: true })
       scripts.push({
         children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${SITE.googleAnalyticsId}');`,
+      })
+    }
+    // Microsoft Clarity (heatmaps & session recordings)
+    if (SITE.clarityId) {
+      scripts.push({
+        children: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${SITE.clarityId}");`,
       })
     }
     return {
@@ -36,7 +50,10 @@ export const Route = createRootRoute({
       links: [
         { rel: 'preload', href: '/fonts/jakarta-latin.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
         { rel: 'stylesheet', href: appCss },
+        // Favicons – Google Search needs a square icon in a multiple of 48px, linked from the home page
         { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'icon', type: 'image/png', href: '/favicon-48x48.png', sizes: '48x48' },
+        { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' },
         { rel: 'icon', type: 'image/png', href: '/icon-192.png', sizes: '192x192' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
@@ -58,6 +75,16 @@ function Shell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {SITE.GTMId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${SITE.GTMId}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
         {children}
         <Scripts />
       </body>

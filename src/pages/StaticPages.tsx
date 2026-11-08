@@ -479,7 +479,7 @@ export function PrivacyPage() {
       <Breadcrumbs items={crumbs("en", "Privacy Policy", "/privacy-policy")} />
       <div className="wrap narrow">
         <h1>Privacy Policy</h1>
-        <p>Last updated: 29 October 2026</p>
+        <p>Last updated: 8 November 2026</p>
         <p>
           KVM Agencies ("we") respects your privacy. When you call us, message
           us on WhatsApp, email us or submit the enquiry form on kvmagencies.in,
@@ -504,8 +504,21 @@ export function PrivacyPage() {
         </p>
         <h2>Analytics</h2>
         <p>
-          We may use Google Analytics to understand how visitors use this
-          website. It uses cookies and collects anonymous usage data.
+          We use Google Analytics and Google Tag Manager to understand how
+          visitors use this website, for example which pages are visited and
+          when the call, WhatsApp or enquiry buttons are used. These services
+          use cookies and collect anonymous usage data.
+        </p>
+        <p>
+          We also use Microsoft Clarity, which captures how you use and interact
+          with our website through behavioural metrics, heatmaps and session
+          replay, to improve our website. Website usage data is captured using
+          first and third-party cookies and other tracking technologies. For
+          more information, see the{" "}
+          <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">
+            Microsoft Privacy Statement
+          </a>
+          .
         </p>
         <h2>Contact</h2>
         <p>

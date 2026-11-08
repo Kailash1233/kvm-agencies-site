@@ -19,7 +19,7 @@
     // Form-encoded body + only CORS-safelisted headers = no preflight request (FormSubmit rejects preflights)
     var body = new URLSearchParams(Object.assign({}, d, { page: location.href, _subject: 'New enquiry: ' + d.material + ' – ' + d.location + ' (' + d.name + ')', _template: 'table', _captcha: 'false' }));
     var url = '__FORM_ENDPOINT__';
-    function ok() { done(true); if (window.gtag) gtag('event', 'generate_lead', { method: 'form', material: d.material, location: d.location }); f.reset(); }
+    function ok() { done(true); (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', method: 'form', material: d.material, location: d.location }); if (window.gtag) gtag('event', 'generate_lead', { method: 'form', material: d.material, location: d.location }); f.reset(); }
     fetch(url, { method: 'POST', headers: { Accept: 'application/json' }, body: body })
       .then(function (r) { if (!r.ok) throw new Error(r.status); ok(); })
       .catch(function (err) {
