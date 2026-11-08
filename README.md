@@ -36,12 +36,15 @@ npm test           # SEO + functional test suite (needs a build first); report i
 
 ## Things to fill in (one file: `src/data/site.ts`)
 
-| Field                                    | What to put                                                                                                                                              |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `geo`                                    | Exact latitude/longitude of your Google Maps pin. Open Maps, right-click the pin and click the numbers to copy them. The current values are approximate. |
-| `googleAnalyticsId`                      | Your GA4 ID, e.g. `G-XXXXXXX`. Call and WhatsApp clicks are tracked as `click_to_call`, `click_to_whatsapp` and `generate_lead` events.                  |
-| `googleSiteVerification`                 | Only if you verify Search Console with the HTML tag. DNS verification is better and needs no code.                                                       |
-| `social.facebook / justdial / indiamart` | Real links when you have them. Also add them to `sameAs`.                                                                                                |
+| Field | What it does |
+|---|---|
+| `geo` | Exact latitude/longitude of your Google Maps pin. Open Maps, right-click the pin and click the numbers to copy them. |
+| `googleAnalyticsId` | GA4 (`G-5ENBYJV905`), loaded directly on every page. **Don't** also add a GA4 / Google tag for this ID inside GTM, or visits are counted twice. |
+| `GTMId` | Google Tag Manager container (`GTM-TSTQ4F2S`). Use it for extra tags (Ads conversions, Meta pixel, etc.). The site pushes `click_to_call`, `click_to_whatsapp` and `generate_lead` events to the dataLayer. |
+| `clarityId` | Microsoft Clarity project (`zabyfg8h4m`), loaded directly. Don't add Clarity again inside GTM. |
+| `googleSiteVerification` | Leave empty. Search Console is verified by `public/googlec8fb3c71c908bc1d.html`; never delete that file. |
+| `bingSiteVerification` | Leave empty. Bing Webmaster Tools was verified by importing from Search Console. |
+| `social.*` | Profile links shown in the footer and in the business schema (`sameAs`). An empty `""` link is hidden automatically (e.g. Facebook until the page is ready). |
 
 After editing, run `npm run build` and redeploy (Vercel redeploys automatically on push).
 

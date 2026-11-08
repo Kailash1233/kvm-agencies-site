@@ -322,6 +322,7 @@ export function EnquiryForm({ lang, defaultMaterial, defaultArea }: { lang: Lang
         else throw err
       }
       setStatus('sent')
+      ;((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'generate_lead', method: 'form', material: data.material, location: data.location })
       ;(window as any).gtag?.('event', 'generate_lead', { method: 'form', material: data.material, location: data.location })
       form.reset()
     } catch {
@@ -531,6 +532,15 @@ export function Header({ lang, altPath }: { lang: Lang; altPath: string }) {
   )
 }
 
+const SOCIAL_LABELS: [keyof typeof SITE.social, string][] = [
+  ['instagram', 'Instagram'],
+  ['youtube', 'YouTube'],
+  ['facebook', 'Facebook'],
+  ['linkedin', 'LinkedIn'],
+  ['justdial', 'Justdial'],
+  ['indiamart', 'IndiaMART'],
+]
+
 export function Footer({ lang }: { lang: Lang }) {
   const s = t(lang)
   const year = new Date().getFullYear()
@@ -613,31 +623,13 @@ export function Footer({ lang }: { lang: Lang }) {
             </ul>
             <h3 style={{ marginTop: 18 }}>Follow us</h3>
             <ul>
-              <li>
-                <a href={SITE.social.instagram} target="_blank" rel="noopener me">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href={SITE.social.youtube} target="_blank" rel="noopener me">
-                  YouTube
-                </a>
-              </li>
-              <li>
-                <a href={SITE.social.facebook} rel="nofollow">
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href={SITE.social.justdial} rel="nofollow">
-                  Justdial
-                </a>
-              </li>
-              <li>
-                <a href={SITE.social.indiamart} rel="nofollow">
-                  IndiaMART
-                </a>
-              </li>
+              {SOCIAL_LABELS.filter(([k]) => SITE.social[k]).map(([k, label]) => (
+                <li key={k}>
+                  <a href={SITE.social[k]} target="_blank" rel="noopener me">
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
