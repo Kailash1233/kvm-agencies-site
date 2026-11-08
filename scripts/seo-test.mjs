@@ -405,7 +405,7 @@ async function pageWith(viewport) {
   await page.route("https://formsubmit.co/**", async (r) => {
     posted = {
       url: r.request().url(),
-      body: JSON.parse(r.request().postData() || "{}"),
+      body: Object.fromEntries(new URLSearchParams(r.request().postData() || "")),
     };
     await r.fulfill({
       status: 200,
