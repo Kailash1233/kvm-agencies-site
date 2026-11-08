@@ -92,9 +92,11 @@ export function businessSchema() {
           name: "Construction raw materials",
           itemListElement: PRODUCTS.filter((p) => !p.hub).map((p) => ({
             "@type": "Offer",
+            // Service (not Product): Google requires price/review data on Product items, and we
+            // don't publish prices – "supply of X" is a valid, rich-result-free description
             itemOffered: {
-              "@type": "Product",
-              name: p.name,
+              "@type": "Service",
+              name: `${p.name} supply`,
               url: abs(`/products/${p.slug}`),
             },
             areaServed: "Chengalpattu district, Tamil Nadu",
