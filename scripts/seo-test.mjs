@@ -181,6 +181,7 @@ ok(
   ok("Footer social links (no empty / # links)", home.includes("in.linkedin.com/company/kvm-cmart") && home.includes("justdial.com/Chengalpattu/KVM-Agencies") && !/<a href="#"/.test(home) && !home.includes(">Facebook<"));
   ok("sameAs lists the business profiles", home.includes('"sameAs":["https://www.instagram.com/kvmcmart/"') && home.includes("linkedin.com/company/kvm-cmart"));
 }
+ok("No Product schema without offers/price (avoids Search Console 'invalid item' errors)", pages.every((p) => !fs.readFileSync(file(p), "utf8").includes('"@type":"Product"')));
 ok(
   "Schema founder is Murali Kathirvel",
   fs
